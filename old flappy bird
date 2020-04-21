@@ -1,0 +1,120 @@
+def hi(msg,x,y,color):
+    fontobj=pygame.font.SysFont("freesans",32)
+    msgobj=fontobj.render(msg,False,color)
+    screen.blit(msgobj,(x,y))
+import pygame
+from pygame.locals import*
+pygame.init()
+import random
+import time
+screen=pygame.display.set_mode((1000,600))
+yellow=(255,255,0)
+x=500
+y=300
+wingx1=460
+wingx2=490
+wingy1=280
+wingy2=300
+eyex=505
+eyey=300
+beakx1=521
+beaky1=300
+beakx2=525
+beaky2=305
+beakx3=519
+beaky3=307
+ychange=0
+eyeychange=0
+b=(0,153,250)
+r=(255,0,0)
+pipex=700
+w=(255,255,255)
+xchange=-2
+hu=250
+hl=350
+o=(255,10,10)
+score=0
+g=(0,255,23)
+br=(55,0,15)
+bl=(0,0,0)
+
+ychange=1
+while True:
+    
+    pygame.draw.circle(screen,yellow,(x,y),20)
+    pygame.draw.circle(screen,bl,(eyex,eyey),5)
+    pygame.draw.rect(screen,r,(pipex,hl,50,500))
+    pygame.draw.rect(screen,r,(pipex,0,50,hu))
+    pygame.draw.circle(screen,w,(100,150),30)
+    pygame.draw.circle(screen,w,(120,100),30)
+    pygame.draw.circle(screen,w,(145,130),30)
+    pygame.draw.circle(screen,w,(170,100),30)
+    pygame.draw.polygon(screen,o,((beakx1,beaky1),(beakx2,beaky2),(beakx3,beaky3)),6)
+
+
+    pygame.draw.circle(screen,w,(700,120),30)
+    pygame.draw.circle(screen,w,(740,115),30)
+    pygame.draw.circle(screen,w,(735,75),30)
+    pygame.draw.circle(screen,w,(770,100),30)
+    pygame.draw.rect(screen,br,(0,590,1000,10))
+    pygame.draw.rect(screen,g,(0,560,1000,30))
+    pygame.draw.line(screen,bl,(wingx1,wingy1),(wingx2,wingy2),30)
+    
+    
+    
+    
+    for event in pygame.event.get():
+        if event.type==QUIT:
+            pygame.quit()
+            exit()
+        elif event.type==KEYDOWN:
+                if event.key==K_SPACE:
+                    ychange=-2
+                    eyeychange=-2
+                    
+        elif event.type==KEYUP:
+                if event.key==K_SPACE:
+                    ychange=1
+                    eyeychange=1
+    beaky1=beaky1+ychange
+    beaky2=beaky2+ychange
+    beaky3=beaky3+ychange
+    wingy1=wingy1+ychange
+    wingy2=wingy2+ychange 
+    eyey=eyey+ychange
+    y=y+ychange
+    pipex=pipex+xchange
+    if pipex<0:
+        pipex=1000
+        hu=random.randint(50,450)
+        hl=hu+100
+
+    if hu<y<hl and x==pipex:
+        score=score+1
+    hi(str(score),30,100,w)
+        
+             
+    if x==pipex and 50<=y<=hu or x==pipex and hu+100<=y or y==0 or y==600 or wingx1==pipex and 30<=wingy1<=hu or wingx2==pipex and 30<=wingy2<=hu:
+        print("game over, you LOSE!!:):)")
+        hi("game over, you LOSE!!:):)",30,250,w)
+        pygame.display.update()
+        time.sleep(2)
+        exit()
+
+    if pipex<x<pipex+50 and hl-500<y<hu:
+        print("game over, you LOSE!!:):)")
+        hi("game over, you LOSE!!:):)",30,250,w)
+        pygame.display.update()
+        time.sleep(2)
+        exit()
+##    if score>=5:
+##        xchange=xchange-1
+    if score==10:
+        hi("You WIN :(:(:(",30,250,w)
+        pygame.display.update()
+        time.sleep(2)
+        exit()
+        
+    pygame.display.update()
+    screen.fill(b)
+
