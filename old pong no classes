@@ -1,0 +1,149 @@
+import pygame
+from pygame.locals import*
+
+
+pygame.init()
+
+
+b=(0,0,255)
+bl=(0,0,0)
+r=(255,0,0)
+w=(255,255,255)
+screen= pygame.display.set_mode((640,480))
+
+
+pygame.display.update()
+
+
+
+
+x=320
+y=240
+f=0
+g=0
+m=0
+l=190
+o=590
+p=190
+xchange= 1
+ychange= 1
+right_pad_up=0
+left_pad_up=0
+right_pad_down=0
+left_pad_down=0
+score1=0
+score2=0
+
+
+while True:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            exit()
+        elif event.type== KEYDOWN:
+            if event.key == K_UP:
+                right_pad_up=1
+                p=p-1
+            elif event.key== K_w:
+                left_pad_up=1
+            elif event.key == K_DOWN:
+                right_pad_down=1
+                p=p+1
+            elif event.key== K_s:
+                left_pad_down=1
+            
+        elif event.type== KEYUP:
+            if event.key == K_UP:
+                right_pad_up=0
+
+            elif event.key== K_w:
+                left_pad_up=0
+
+            elif event.key == K_DOWN:
+                right_pad_down=0
+
+            elif event.key== K_s:
+                left_pad_down=0
+
+    #up/down control
+    if left_pad_up==1:
+            l=l-1
+    if left_pad_down==1:
+            l=l+1
+    if right_pad_up==1:
+        p=p-1
+    if right_pad_down==1:
+        p=p+1
+    if l<=0:
+        l=0
+    if l>=380:
+        l=380
+    if p<=0:
+        p=0
+    if p>=380:
+        p=380
+    
+    right_pad=pygame.draw.rect(screen,b,(o,p,50,100),)
+    left_pad=pygame.draw.rect(screen,r,(m,l,50,100),)
+
+    pygame.draw.circle(screen,b,(x,y),10,10)
+    x=x+xchange
+    y=y+ychange
+
+    if x==0:
+        x=320
+        y=240
+        score1=score1+1
+        print("player 1:",score1)
+        print("player 2:",score2)
+
+    if x==640:
+        x=320
+        y=240
+        score2=score2+1
+        print("player 1:",score1)
+        print("player 2:",score2)
+
+    if score1==20:
+        print("PLayer 1 wins")
+
+    if score2==20:
+        print("PLayer 2 wins")
+        
+    if y==0:
+        #xchange=-xchange
+        ychange=-ychange
+
+    if y==480:
+        #xchange=-xchange
+        ychange=-ychange
+    if l<=y<=l+100 and x-10==m+50:
+        xchange=-xchange
+    
+        print("HIT")
+    if p<=y<=p+100 and x+10==o +50:
+        xchange=-xchange
+        print("HIT")
+       
+        
+    pygame.display.update()
+    screen.fill(bl)
+    
+    if score1==20:
+        print("PLayer 1 wins")
+        def hii(msg,x,y,color):
+            fontobj=pygame.font.SysFont("freesans",32)
+            msgobj=fontobj.render(msg,False,color)
+            screen.blit(msgobj,(x,y))
+        hii("PLayer 1 wins",320,240,w)
+
+
+
+    if score2==20:
+        print("PLayer 2 wins")
+        def hiii(msg,x,y,color):
+            fontobj=pygame.font.SysFont("freesans",32)
+            msgobj=fontobj.render(msg,False,color)
+            screen.blit(msgobj,(x,y))
+        hiii("PLayer 2 wins",320,240,w)
+
