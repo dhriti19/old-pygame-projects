@@ -41,9 +41,15 @@ def game():
         for m in range(0,900,300):
             pygame.draw.rect(screen,b,(m,h,300,300))
             a,b=b,a
+    dogs={}
+    for i in range(0,9):
+        dogs[i]='_'
+    print(dogs)
+    def show_text(msg,x,y,color):
+        fontobj = pygame.font.SysFont("freesans",32)
+        msgobj = fontobj.render(msg,False,color)
+        screen.blit(msgobj,(x,y))
     while True:
-        dogs=[]
-        time.sleep(0.05)
         for event in pygame.event.get():
             if event.type==QUIT:
                 pygame.quit()
@@ -57,89 +63,133 @@ def game():
                 
                 
                 if x in range(0,300) and y in range(0,300):
-                    if rv=="x":
+                    if rv=="x" and dogs[0]=='_':
                         hi(0,0)
+                        dogs[0]=rv
                         rv="o"
-                    elif rv=="o":
+                    elif rv=="o" and dogs[0]=='_':
                         circle(150,150)
-                        dogs.append(rv)
+                        dogs[0]=rv
                         rv="x"
+                        
+                   
+
 
 
                 if x in range(300,600) and y in range(0,300):
-                    if rv=="o":
+                    if rv=="o" and dogs[1]=='_':
                         circle(450,150)
+                        dogs[1]=rv
                         rv="x"
-                    elif rv=="x":
+                    elif rv=="x" and dogs[1]=='_':
                         hi(300,0)
-                        dogs.append(rv)
+                        dogs[1]=rv
                         rv="o"
                   
 
                 if x in range(600,900) and y in range(0,300):
-                    if rv=="x":
+                    if rv=="x" and dogs[2]=='_':
                         hi(600,0)
+
+                        dogs[2]=rv
                         rv="o"
-                    elif rv=="o":
+                    elif rv=="o" and dogs[2]=='_':
                         circle(750,150)
+                        dogs[2]=rv
                         rv="x"
 
                 if x in range(0,300) and y in range(300,600):
-                    if rv=="o":
+                    if rv=="o" and dogs[3]=='_':
                         circle(150,450)
+                        dogs[3]=rv
                         rv="x"
-                    elif rv=="x":
+                    elif rv=="x" and dogs[3]=='_':
                         hi(0,300)
+                        dogs[3]=rv
                         rv="o"
 
                 if x in range(300,600) and y in range(300,600):
-                    if rv=="x":
+                    if rv=="x" and dogs[4]=='_':
                         hi(300,300)
+                        dogs[4]=rv
                         rv="o"
-                    elif rv=="o":
+                    elif rv=="o" and dogs[4]=='_':
                         circle(450,450)
+                        dogs[4]=rv
                         rv="x"
                         
                         
 
                 if x in range(600,900) and y in range(300,600):
-                    if rv=="o":
+                    if rv=="o" and dogs[5]=='_':
                         circle(750,450)
+                        dogs[5]=rv
                         rv="x"
-                    elif rv=="x":
+                    elif rv=="x" and dogs[5]=='_':
                         hi(600,300)
+                        dogs[5]=rv
                         rv="o"
                         
 
                 if x in range(0,300) and y in range(600,900):
-                    if rv=="x":
+                    if rv=="x" and dogs[6]=='_':
                         hi(0,600)
+                        dogs[6]=rv
                         rv="o"
-                    elif rv=="o":
+                    elif rv=="o" and dogs[6]=='_':
                         circle(150,750)
+                        dogs[6]=rv
                         rv="x"
 
                 if x in range(300,600) and y in range(600,900):
-                    if rv=="o":
+                    if rv=="o" and dogs[7]=='_':
                         circle(450,750)
+                        dogs[7]=rv
                         rv="x"
-                    elif rv=="x":
+                    elif rv=="x" and dogs[7]=='_':
                         hi(300,600)
+                        dogs[7]=rv
                         rv="o"
 
 
                 if x in range(600,900) and y in range(600,900):
-                    if rv=="x":
+                    if rv=="x" and dogs[8]=='_':
                         hi(600,600)
+                        dogs[8]=rv
                         rv="o"
-                    elif rv=="o":
+                    elif rv=="o" and dogs[8]=='_':
                         circle(750,750)
+                        dogs[8]=rv
                         rv="x"
                 print(dogs)
-              
+        if dogs[0]==dogs[1]==dogs[2]=='x' or dogs[0]==dogs[3]==dogs[6]=="x" or dogs[0]==dogs[4]==dogs[8]=="x" or dogs[2]==dogs[4]==dogs[6]=="x" or dogs[1]==dogs[4]==dogs[7]=="x" or dogs[2]==dogs[5]==dogs[8]=="x" or dogs[3]==dogs[4]==dogs[5]=="x" or dogs[6]==dogs[7]==dogs[8]=="x":
+            print("x wins")
+            show_text("x wins",400,400,c)
+            pygame.display.update()
+            time.sleep(5)
+            break
+            menu()
+        if dogs[0]==dogs[1]==dogs[2]=='o' or dogs[0]==dogs[3]==dogs[6]=="o" or dogs[0]==dogs[4]==dogs[8]=="o" or dogs[2]==dogs[4]==dogs[6]=="o" or dogs[1]==dogs[4]==dogs[7]=="o" or dogs[2]==dogs[5]==dogs[8]=="o" or dogs[3]==dogs[4]==dogs[5]=="o" or dogs[6]==dogs[7]==dogs[8]=="o":
+            print("o wins")
+            show_text("o wins",400,400,c)
+            pygame.display.update()
+            time.sleep(5)
+            break
+            menu()
+        if dogs[0]!='_' and dogs[1]!='_' and dogs[2]!='_' and dogs[3]!='_' and dogs[4]!='_' and dogs[5]!='_' and dogs[6]!='_' and dogs[7]!='_' and dogs[8]!='_':
+            print("DRAW")
+            show_text("draw",400,400,c)
+            pygame.display.update()
+            time.sleep(5)
+            break
+            menu()
+
+
                 
         pygame.display.update()
+        
                 
+
 
 def menu():
     while True:
@@ -161,12 +211,11 @@ def menu():
                 if x in range(50,150) and y in range(240,340):
                     game()
 
-
 def show_text(msg,x,y,color):
     fontobj = pygame.font.SysFont("freesans",32)
     msgobj = fontobj.render(msg,False,color)
     screen.blit(msgobj,(x,y))
-    
+
 show_text("Play",70,275,b)
 show_text("Exit",275,275,r)
 show_text("Dhriti-tic_tac_toe",0,0,w)
