@@ -1,0 +1,173 @@
+import pygame
+from pygame.locals import*
+
+pygame.init()
+
+r=(255,0,0)
+b=(0,0,255)
+w=(255,255,255)
+c=(155,0,255)
+screen= pygame.display.set_mode((640,480))
+screen.fill(c)
+
+
+
+def game():
+    screen=pygame.display.set_mode((900,900))
+    r=(255,0,0)
+    w=(255,255,255)
+    b=(0,0,0)
+    pygame.draw.rect(screen,w,(600,400,300,300),10)
+    pygame.display.update()
+
+    s=0
+    z=0
+    def hi(x,y):
+        pygame.draw.line(screen,w,(x,y),(x+300,y+300),10)
+        pygame.draw.line(screen,w,(x+300,y),(x,y+300),10)
+        
+    def circle(x,y):
+        pygame.draw.circle(screen,w,(x,y),120,10)
+
+    import random
+    import time
+    r=(255,0,0)
+    blue=(0,0,255)
+    gree=(0,255,0)
+    a=blue
+    b=r
+    rv="x"
+    for h in range(0,900,300):
+        for m in range(0,900,300):
+            pygame.draw.rect(screen,b,(m,h,300,300))
+            a,b=b,a
+    while True:
+        dogs=[]
+        time.sleep(0.05)
+        for event in pygame.event.get():
+            if event.type==QUIT:
+                pygame.quit()
+                exit()
+            
+          
+            elif event.type== pygame.MOUSEBUTTONDOWN and event.button==1:
+                print("You pressed the left mouse button at",event.pos)
+                x,y=event.pos
+               
+                
+                
+                if x in range(0,300) and y in range(0,300):
+                    if rv=="x":
+                        hi(0,0)
+                        rv="o"
+                    elif rv=="o":
+                        circle(150,150)
+                        dogs.append(rv)
+                        rv="x"
+
+
+                if x in range(300,600) and y in range(0,300):
+                    if rv=="o":
+                        circle(450,150)
+                        rv="x"
+                    elif rv=="x":
+                        hi(300,0)
+                        dogs.append(rv)
+                        rv="o"
+                  
+
+                if x in range(600,900) and y in range(0,300):
+                    if rv=="x":
+                        hi(600,0)
+                        rv="o"
+                    elif rv=="o":
+                        circle(750,150)
+                        rv="x"
+
+                if x in range(0,300) and y in range(300,600):
+                    if rv=="o":
+                        circle(150,450)
+                        rv="x"
+                    elif rv=="x":
+                        hi(0,300)
+                        rv="o"
+
+                if x in range(300,600) and y in range(300,600):
+                    if rv=="x":
+                        hi(300,300)
+                        rv="o"
+                    elif rv=="o":
+                        circle(450,450)
+                        rv="x"
+                        
+                        
+
+                if x in range(600,900) and y in range(300,600):
+                    if rv=="o":
+                        circle(750,450)
+                        rv="x"
+                    elif rv=="x":
+                        hi(600,300)
+                        rv="o"
+                        
+
+                if x in range(0,300) and y in range(600,900):
+                    if rv=="x":
+                        hi(0,600)
+                        rv="o"
+                    elif rv=="o":
+                        circle(150,750)
+                        rv="x"
+
+                if x in range(300,600) and y in range(600,900):
+                    if rv=="o":
+                        circle(450,750)
+                        rv="x"
+                    elif rv=="x":
+                        hi(300,600)
+                        rv="o"
+
+
+                if x in range(600,900) and y in range(600,900):
+                    if rv=="x":
+                        hi(600,600)
+                        rv="o"
+                    elif rv=="o":
+                        circle(750,750)
+                        rv="x"
+                print(dogs)
+              
+                
+        pygame.display.update()
+                
+
+def menu():
+    while True:
+        for event in pygame.event.get():
+            pygame.draw.rect(screen,r,(50,240,100,100),10)
+            pygame.draw.rect(screen,b,(250,240,100,100),10)
+            pygame.display.update()
+            if event.type== QUIT:
+                pygame.quit()
+                exit()
+                pygame.display.update()
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1:
+                x,y=event.pos
+                
+                print("You pressed the left mouse button at", event.pos)
+                if x in range(250,350)and y in range(240,340):
+                    pygame.quit()
+                    exit()
+                if x in range(50,150) and y in range(240,340):
+                    game()
+
+
+def show_text(msg,x,y,color):
+    fontobj = pygame.font.SysFont("freesans",32)
+    msgobj = fontobj.render(msg,False,color)
+    screen.blit(msgobj,(x,y))
+    
+show_text("Play",70,275,b)
+show_text("Exit",275,275,r)
+show_text("Dhriti-tic_tac_toe",0,0,w)
+menu()
