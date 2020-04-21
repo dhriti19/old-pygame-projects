@@ -1,0 +1,102 @@
+import pygame
+import random
+import time
+from pygame.locals import*
+pygame.init()
+red=(255,0,0)
+green=(0,255,0)
+blue=(0,0,255)
+white=(255,255,255)
+black=(0,0,0)
+def showtext(msg,x,y,color):
+    fontobj=pygame.font.SysFont("freesans", 32)
+    msgobj=fontobj.render(msg, False, color)
+    screen.blit(msgobj,(x,y))
+foodx=(random.randint(0,640)//10)*10
+foody=(random.randint(0,480)//10)*10
+snakex=(random.randint(0,640)//10)*10
+snakey=(random.randint(0,480)//10)*10
+screen=pygame.display.set_mode((640,480))
+down=0
+up=0
+left=0
+right=0
+score=0
+snakelist=[[snakex,snakey]]
+
+while True:
+    snakelist.insert(0,[snakex,snakey])
+    screen.fill(black)
+    pygame.time.wait(50)
+    snakelist.pop()
+    pygame.draw.rect(screen, red, (foodx,foody,10,10))
+    for segment in snakelist:
+        pygame.draw.rect(screen, green, segment+[10,10])
+    for event in pygame.event.get():
+        if event.type==QUIT:
+            pygame.quit()
+            exit()
+        elif event.type==KEYDOWN:
+            if event.key==K_DOWN:
+                down=1
+                left=0
+                up=0
+                right=0
+            if event.key==K_UP:
+                down=0
+                left=0
+                up=1
+                right=0
+
+            if event.key==K_LEFT:
+                down=0
+                left=1
+                up=0
+                right=0
+            if event.key==K_RIGHT:
+                down=0
+                left=0
+                up=0
+                right=1
+    if right:
+           snakex=snakex+10
+    if up:
+           snakey=snakey-10
+    if left:
+            snakex=snakex-10
+    if down:
+            snakey=snakey+10
+    if (foodx,foody)==(snakex,snakey):
+        foodx=(random.randint(0,640)//10)*10
+        foody=(random.randint(0,480)//10)*10
+        snakelist.insert(0,[snakex,snakey])
+        score=score+1
+    if 1==1:
+        showtext(str(score),10,10, white)
+
+    if snakex==-20:
+        showtext("GAME OVER!!!!!!!",50,50,white)
+        pygame.display.update()
+        quit()
+    if snakex==650:
+        showtext("GAME OVER!!!!!!!",50,50,white)
+        pygame.display.update()
+        time.sleep(2)
+        quit()
+    if snakey==-10:
+        showtext("GAME OVER!!!!!!!",50,50,white)
+        pygame.display.update()
+        time.sleep(2)
+        quit()
+    if snakey==490:
+        showtext("GAME OVER!!!!!!!",50,50,white)
+        pygame.display.update()
+        time.sleep(2)
+        quit()
+    if [snakex,snakey] in snakelist[2:]:
+        showtext("GAME OVER!!!!!!!",50,50,white)
+        pygame.display.update()
+        time.sleep(2)
+        quit()
+
+    pygame.display.update()
